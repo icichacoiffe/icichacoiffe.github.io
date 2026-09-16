@@ -1,0 +1,1 @@
+const c=document.getElementById("fireflies");for(let i=0;i<35;i++){const d=document.createElement("div");d.className="firefly";d.style.left=Math.random()*100+"vw";d.style.top=Math.random()*100+"vh";d.style.animationDuration=6+Math.random()*10+"s";d.style.animationDelay=Math.random()*-8+"s";c.appendChild(d);}
