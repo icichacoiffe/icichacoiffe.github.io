@@ -1,1 +1,1 @@
-const c=document.getElementById('fireflies');for(let i=0;i<42;i++){const f=document.createElement('div');f.className='firefly';f.style.left=Math.random()*100+'vw';f.style.top=Math.random()*100+'vh';f.style.animationDuration=7+Math.random()*10+'s';f.style.animationDelay=-Math.random()*10+'s';c.appendChild(f);}
+document.getElementById('toggle').onclick=()=>document.body.classList.toggle('reading')
