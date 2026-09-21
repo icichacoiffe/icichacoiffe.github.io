@@ -1,1 +1,257 @@
-<!doctype html><html lang='fr'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Le Jardin des Métamorphoses</title><link rel='preconnect' href='https://fonts.googleapis.com'><link href='https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Cinzel:wght@400;600&display=swap' rel='stylesheet'><link rel='stylesheet' href='style.css'></head><body><div id='mist'></div><div id='fireflies'></div><header class='hero'><img class='fountain' src='assets/fountain.svg'><div class='frame'><img class='logo' src='assets/logo-butterfly.svg'><p class='kicker'>Bienvenue</p><h1>Le Jardin des Métamorphoses</h1><p>Chaque chevelure raconte une histoire.</p><a class='btn' href='https://cal.com/ici-cha-coiffe'>Entrer dans le jardin ✨</a></div></header><section class='cards'><a class='card' href='https://cal.com/ici-cha-coiffe/coupe'><img src='assets/card-branches.svg'><h3>Le Rituel des Branches</h3><p>Coupe • 1 h</p></a><a class='card' href='https://cal.com/ici-cha-coiffe/coloration'><img src='assets/card-colors.svg'><h3>Le Rituel des Couleurs</h3><p>Coloration • 2 h</p></a><a class='card' href='https://cal.com/ici-cha-coiffe/decoloration'><img src='assets/card-metamorphosis.svg'><h3>La Grande Métamorphose</h3><p>Décoloration • 4–6 h</p></a></section><section class='about'><h2>La Gardienne du Jardin</h2><p>Chaque demande est étudiée personnellement avant confirmation.</p><button id='toggle'>Mode lecture 🌿</button></section><footer>© Ici Cha Coiffe</footer><script src='script.js'></script></body></html>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Le Jardin des Métamorphoses — Ici Cha Coiffe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Italiana&display=swap" rel="stylesheet">
+<style>
+:root{
+  --nuit:#0e1310; --mousse:#1a2318; --pierre:#39412f; --lierre:#7d9162;
+  --creme:#ece5d4; --brume:#b9b6a2; --or:#d6bd84; --rose:#b4707a;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{
+  margin:0;background:var(--nuit);color:var(--creme);
+  font-family:"Cormorant Garamond",Georgia,serif;font-size:19px;font-weight:300;
+  line-height:1.75;-webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(214,189,132,.13), transparent 70%),
+    radial-gradient(ellipse 60% 40% at 10% 100%, rgba(125,145,98,.10), transparent 70%);
+  background-attachment:fixed;
+}
+img{max-width:100%}
+a{color:inherit}
+.wrap{max-width:660px;margin:0 auto;padding:0 24px}
+
+/* ————— Hero ————— */
+.hero{position:relative;text-align:center;padding:64px 0 48px;overflow:hidden}
+.arche{width:min(300px,68vw);margin:0 auto;display:block}
+.eyebrow{font-family:"Italiana",serif;letter-spacing:.42em;text-transform:uppercase;
+  font-size:11px;color:var(--or);opacity:.85;margin:28px 0 14px}
+h1{font-family:"Italiana",serif;font-weight:400;font-size:clamp(34px,8.5vw,56px);
+  line-height:1.1;margin:0 0 18px;color:var(--creme)}
+.sous{font-style:italic;color:var(--brume);margin:0 auto;max-width:34ch}
+
+.filet{display:block;margin:38px auto;width:120px;opacity:.6}
+
+/* ————— Boutons ————— */
+.cta{display:inline-block;margin-top:28px;padding:14px 34px;
+  border:1px solid var(--or);color:var(--or);text-decoration:none;
+  font-family:"Italiana",serif;letter-spacing:.2em;text-transform:uppercase;font-size:13px;
+  background:rgba(214,189,132,.05);transition:.35s}
+.cta:hover,.cta:focus-visible{background:var(--or);color:var(--nuit)}
+
+/* ————— Rituels ————— */
+.section-titre{font-family:"Italiana",serif;font-size:13px;letter-spacing:.38em;
+  text-transform:uppercase;color:var(--lierre);text-align:center;margin:0 0 34px}
+.rituels{list-style:none;padding:0;margin:0;display:grid;gap:18px}
+.rituel{position:relative;display:block;text-decoration:none;padding:24px 26px;
+  border:1px solid rgba(125,145,98,.28);background:rgba(26,35,24,.55);
+  transition:.35s;overflow:hidden}
+.rituel::before{content:"";position:absolute;inset:0;
+  background:linear-gradient(120deg,transparent 40%,rgba(214,189,132,.09));
+  opacity:0;transition:.35s}
+.rituel:hover,.rituel:focus-visible{border-color:var(--or);transform:translateY(-2px)}
+.rituel:hover::before{opacity:1}
+.rituel h3{font-family:"Italiana",serif;font-weight:400;font-size:24px;margin:0 0 4px;color:var(--creme)}
+.rituel .quoi{font-style:italic;color:var(--brume);font-size:17px;margin:0 0 10px}
+.rituel .meta{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--or);opacity:.8;margin:0}
+.rituel .fleche{position:absolute;right:24px;top:50%;transform:translateY(-50%);
+  color:var(--or);opacity:.45;font-size:22px}
+
+/* ————— Cartouche ————— */
+.cartouche{border:1px solid rgba(125,145,98,.25);padding:30px 28px;background:rgba(26,35,24,.4)}
+.cartouche h2{font-family:"Italiana",serif;font-weight:400;font-size:26px;margin:0 0 14px}
+.cartouche ul{list-style:none;padding:0;margin:0}
+.cartouche li{position:relative;padding-left:26px;margin-bottom:10px;color:var(--brume)}
+.cartouche li::before{content:"❧";position:absolute;left:0;top:0;color:var(--lierre);font-size:15px}
+
+/* ————— Lucioles ————— */
+.lucioles{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:2}
+.lucioles i{position:absolute;bottom:-10px;width:4px;height:4px;border-radius:50%;
+  background:#f6ecc0;box-shadow:0 0 7px 2px rgba(246,236,192,.5);opacity:.5}
+
+section{padding:26px 0}
+footer{text-align:center;padding:56px 0 44px;color:var(--brume);font-size:15px}
+footer a{color:var(--or);text-decoration:none;border-bottom:1px solid rgba(214,189,132,.35)}
+.sceau{font-size:12px;letter-spacing:.3em;text-transform:uppercase;opacity:.5;margin-top:22px;
+  font-family:"Italiana",serif}
+
+@media (prefers-reduced-motion:no-preference){
+  .lucioles i{opacity:0;animation:vole linear infinite,scintille ease-in-out infinite}
+  @keyframes vole{
+    0%{transform:translate(0,0)}
+    25%{transform:translate(20px,-140px)}
+    50%{transform:translate(-16px,-280px)}
+    75%{transform:translate(14px,-420px)}
+    100%{transform:translate(-6px,-560px)}
+  }
+  @keyframes scintille{0%,100%{opacity:0}15%{opacity:.95}45%{opacity:.25}70%{opacity:.85}}
+  .apparait{opacity:0;transform:translateY(14px);animation:leve 1.1s ease forwards}
+  .d1{animation-delay:.15s}.d2{animation-delay:.35s}.d3{animation-delay:.55s}
+  @keyframes leve{to{opacity:1;transform:none}}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="lucioles" aria-hidden="true">
+    <i style="left:6%;animation-duration:19s,3.1s;animation-delay:0s,.2s"></i>
+    <i style="left:14%;animation-duration:24s,4.4s;animation-delay:-6s,.9s;width:3px;height:3px"></i>
+    <i style="left:23%;animation-duration:16s,2.7s;animation-delay:-11s,1.4s"></i>
+    <i style="left:31%;animation-duration:27s,3.8s;animation-delay:-3s,.5s;width:5px;height:5px"></i>
+    <i style="left:41%;animation-duration:21s,3.3s;animation-delay:-15s,2s"></i>
+    <i style="left:49%;animation-duration:18s,4.9s;animation-delay:-8s,.1s;width:3px;height:3px"></i>
+    <i style="left:58%;animation-duration:25s,2.9s;animation-delay:-19s,1.1s"></i>
+    <i style="left:66%;animation-duration:20s,4.1s;animation-delay:-2s,1.8s;width:5px;height:5px"></i>
+    <i style="left:74%;animation-duration:29s,3.5s;animation-delay:-13s,.7s"></i>
+    <i style="left:83%;animation-duration:17s,4.6s;animation-delay:-9s,2.3s;width:3px;height:3px"></i>
+    <i style="left:90%;animation-duration:23s,3.0s;animation-delay:-17s,1.6s"></i>
+    <i style="left:96%;animation-duration:26s,3.9s;animation-delay:-5s,.4s"></i>
+  </div>
+  <div class="wrap">
+    <svg class="arche apparait" viewBox="0 0 240 240" aria-hidden="true">
+      <defs>
+        <radialGradient id="ciel" cx="50%" cy="28%" r="75%">
+          <stop offset="0%" stop-color="#f3ecd2"/><stop offset="38%" stop-color="#c3cfa4"/>
+          <stop offset="75%" stop-color="#5d7550"/><stop offset="100%" stop-color="#22331f"/>
+        </radialGradient>
+        <linearGradient id="lac" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#4b6146"/><stop offset="100%" stop-color="#121c12"/>
+        </linearGradient>
+        <linearGradient id="halo" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#f6efd4" stop-opacity=".45"/>
+          <stop offset="100%" stop-color="#f6efd4" stop-opacity="0"/>
+        </linearGradient>
+        <clipPath id="rond"><circle cx="120" cy="120" r="112"/></clipPath>
+        <g id="arbre">
+          <path d="M118 152 L118 96 q-1 -14 -12 -24 q13 6 13 18 l1 -16 q2 -13 14 -20 q-10 10 -11 22 l-1 20 q4 -12 16 -16 q-14 9 -15 24 l-1 44 Z" fill="#3a3326"/>
+          <g fill="#4f6b43">
+            <ellipse cx="120" cy="60" rx="46" ry="30"/><ellipse cx="86" cy="76" rx="30" ry="22"/>
+            <ellipse cx="156" cy="74" rx="30" ry="22"/><ellipse cx="120" cy="84" rx="38" ry="22"/>
+          </g>
+          <g fill="#6d8a55" opacity=".95">
+            <ellipse cx="104" cy="52" rx="26" ry="17"/><ellipse cx="145" cy="60" rx="24" ry="16"/>
+            <ellipse cx="80" cy="72" rx="18" ry="12"/><ellipse cx="163" cy="82" rx="17" ry="11"/>
+          </g>
+          <g fill="#93ad72" opacity=".8">
+            <ellipse cx="112" cy="44" rx="16" ry="10"/><ellipse cx="150" cy="70" rx="12" ry="8"/>
+            <ellipse cx="92" cy="84" rx="12" ry="7"/>
+          </g>
+        </g>
+      </defs>
+
+      <circle cx="120" cy="120" r="112" fill="url(#ciel)"/>
+      <g clip-path="url(#rond)">
+        <circle cx="120" cy="66" r="26" fill="#f7f1da" opacity=".55"/>
+        <circle cx="120" cy="66" r="15" fill="#fbf6e4" opacity=".85"/>
+        <path d="M60 0 L150 0 L104 240 L20 240 Z" fill="url(#halo)" opacity=".5"/>
+        <path d="M-10 150 Q40 122 92 142 Q150 164 250 132 L250 240 L-10 240 Z" fill="#2c4028" opacity=".85"/>
+        <use href="#arbre"/>
+        <rect x="-10" y="150" width="260" height="100" fill="url(#lac)"/>
+        <g clip-path="url(#rond)" opacity=".38">
+          <use href="#arbre" transform="matrix(1 0 0 -1 0 302)"/>
+        </g>
+        <g stroke="#cfd9b4" stroke-width="1.1" opacity=".3" fill="none">
+          <path d="M70 172 q14 -4 28 0 t28 0"/><path d="M96 192 q16 -5 32 0 t32 0"/>
+          <path d="M56 210 q18 -5 36 0 t36 0"/><path d="M130 162 q12 -4 24 0"/>
+        </g>
+        <g fill="#f0e6c0">
+          <ellipse cx="72" cy="182" rx="9" ry="3.4" opacity=".16"/>
+          <ellipse cx="150" cy="200" rx="11" ry="4" opacity=".14"/>
+        </g>
+        <g fill="#6e8a52" opacity=".9">
+          <ellipse cx="58" cy="176" rx="11" ry="4"/><ellipse cx="176" cy="192" rx="12" ry="4.5"/>
+          <ellipse cx="96" cy="212" rx="13" ry="5"/>
+        </g>
+        <g fill="#efe4b9">
+          <circle cx="188" cy="112" r="1.9"/><circle cx="58" cy="102" r="1.6"/>
+          <circle cx="170" cy="140" r="1.4"/><circle cx="66" cy="136" r="2.1"/>
+          <circle cx="200" cy="86" r="1.3"/><circle cx="44" cy="70" r="1.5"/>
+        </g>
+        <g fill="#c88089" opacity=".9">
+          <circle cx="42" cy="158" r="3"/><circle cx="50" cy="163" r="2.4"/>
+          <circle cx="196" cy="168" r="3"/><circle cx="204" cy="162" r="2.3"/>
+        </g>
+      </g>
+      <circle cx="120" cy="120" r="112" fill="none" stroke="#4a5640" stroke-width="3"/>
+      <circle cx="120" cy="120" r="106" fill="none" stroke="#d6bd84" stroke-width="1" opacity=".45"/>
+      <g fill="#6f8455">
+        <path d="M14 96 q12 -8 16 4 q-14 8 -16 -4Z"/><path d="M22 126 q13 -6 15 6 q-14 6 -15 -6Z"/>
+        <path d="M226 110 q-12 -8 -16 4 q14 8 16 -4Z"/><path d="M218 144 q-13 -6 -15 6 q14 6 15 -6Z"/>
+        <path d="M112 6 q10 -7 13 3 q-12 7 -13 -3Z"/><path d="M128 234 q-10 7 -13 -3 q12 -7 13 3Z"/>
+      </g>
+    </svg>
+
+    <p class="eyebrow apparait d1">Ici Cha Coiffe</p>
+    <h1 class="apparait d1">Le Jardin des<br>Métamorphoses</h1>
+    <p class="sous apparait d2">Chaque chevelure raconte une histoire. Venez écrire la suite de la vôtre.</p>
+    <a class="cta apparait d3" href="https://cal.com/ici-cha-coiffe">Entrer dans le jardin</a>
+  </div>
+</header>
+
+<svg class="filet" viewBox="0 0 120 20" aria-hidden="true">
+  <path d="M0 10 H44" stroke="#7d9162" stroke-width="1"/>
+  <path d="M76 10 H120" stroke="#7d9162" stroke-width="1"/>
+  <path d="M60 3 q7 7 0 14 q-7 -7 0 -14Z" fill="#d6bd84"/>
+  <circle cx="60" cy="10" r="1.6" fill="#0e1310"/>
+</svg>
+
+<section>
+  <div class="wrap">
+    <h2 class="section-titre">Les Rituels</h2>
+    <div class="rituels">
+      <a class="rituel" href="https://cal.com/ici-cha-coiffe/coupe">
+        <h3>Le Rituel des Branches</h3>
+        <p class="quoi">Coupe, mise en forme, retour à la ligne juste.</p>
+        <p class="meta">Environ 1 h</p>
+        <span class="fleche" aria-hidden="true">→</span>
+      </a>
+      <a class="rituel" href="https://cal.com/ici-cha-coiffe/coloration">
+        <h3>Le Rituel des Couleurs</h3>
+        <p class="quoi">Coloration, nuances chaudes ou froides, reflets.</p>
+        <p class="meta">Environ 2 h</p>
+        <span class="fleche" aria-hidden="true">→</span>
+      </a>
+      <a class="rituel" href="https://cal.com/ici-cha-coiffe/decoloration">
+        <h3>La Grande Métamorphose</h3>
+        <p class="quoi">Décoloration, éclaircissement, changement complet.</p>
+        <p class="meta">4 à 6 h</p>
+        <span class="fleche" aria-hidden="true">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="cartouche">
+      <h2>Avant de franchir le seuil</h2>
+      <ul>
+        <li>Chaque demande est étudiée personnellement avant d'être confirmée.</li>
+        <li>Si vous hésitez sur le rituel à choisir, envoyez-moi un message sur Instagram pour que l'on en discute ensemble.</li>
+        <li>Pour une décoloration, prévoyez la journée et venez sur cheveux non lavés depuis 24 h.</li>
+        <li>Un empêchement ? Prévenez au moins 24 h à l'avance, le créneau pourra profiter à quelqu'un d'autre.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>Une question avant de réserver ?<br>
+    Écrivez-moi sur <a href="https://instagram.com/">Instagram</a>.</p>
+    <p class="sceau">© Ici Cha Coiffe</p>
+  </div>
+</footer>
+
+</body>
+</html>
